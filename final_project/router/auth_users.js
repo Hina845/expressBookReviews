@@ -48,15 +48,16 @@ regd_users.post("/login", (req,res) => {
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
-    const review = req.params.review
-    books[isbn].review[req.session.authorization.username] = review;
+    const review = req.body.review
+    books[isbn].reviews[req.session.authorization.username] = review;
+    console.log(books)
     res.status(200).send("Review added!")
 });
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
-    const review = req.params.review
-    books[isbn].review.
+    delete books[isbn].reviews[req.session.authorization.username]
+    res.status(200).send("Review removed!")
 })
 
 module.exports.authenticated = regd_users;
